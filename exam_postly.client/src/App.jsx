@@ -27,7 +27,7 @@ function App() {
                         <td>{forecast.temperatureC}</td>
                         <td>{forecast.temperatureF}</td>
                         <td>{forecast.summary}</td>
-                        <td>release test</td>
+                        <td>release test 3</td>
                     </tr>
                 )}
             </tbody>
