@@ -17,8 +17,6 @@ function App() {
                     <th>Temp. (C)</th>
                     <th>Temp. (F)</th>
                     <th>Summary</th>
-                    <th>test</th>
-                    <th>test 4</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +26,6 @@ function App() {
                         <td>{forecast.temperatureC}</td>
                         <td>{forecast.temperatureF}</td>
                         <td>{forecast.summary}</td>
-                        <td>release test 3</td>
                     </tr>
                 )}
             </tbody>
