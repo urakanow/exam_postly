@@ -17,6 +17,7 @@ function App() {
                     <th>Temp. (C)</th>
                     <th>Temp. (F)</th>
                     <th>Summary</th>
+                    <th>test</th>
                 </tr>
             </thead>
             <tbody>
