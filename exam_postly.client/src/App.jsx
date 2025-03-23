@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
     const [forecasts, setForecasts] = useState();
 
     useEffect(() => {
@@ -41,7 +42,7 @@ function App() {
     );
     
     async function populateWeatherData() {
-        const response = await fetch('weatherforecast');
+        const response = await fetch(`${apiBaseUrl}/weatherforecast`);
         if (response.ok) {
             const data = await response.json();
             setForecasts(data);
