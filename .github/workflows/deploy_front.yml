@@ -23,14 +23,14 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-        working-directory: client  # ✅ Set correct working directory
+
 
       - name: Build React App
         run: npm run build
-        working-directory: client  # ✅ Set correct working directory
+
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: build  # ✅ Deploy the correct build folder
+
