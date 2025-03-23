@@ -36,3 +36,5 @@ jobs:
         with:
           branch: gh-pages
           folder: exam_postly.client/dist
+          clean: true  # Force updates by cleaning old files
+          force: true  # Force push to override any cached states
