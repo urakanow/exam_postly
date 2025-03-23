@@ -58,5 +58,5 @@ export default defineConfig({
             cert: fs.readFileSync(certFilePath),
         }
     },
-    baseFolder: './'
+    base: '/exam_postly.client/'
 })
