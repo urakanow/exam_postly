@@ -6,7 +6,7 @@ on:
       - main  # Runs only when `main` is updated
 
 jobs:
-  deploy:
+  backend-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,9 +33,9 @@ jobs:
           local-dir: published_app/
           server-dir: /www.exam-postly.somee.com/ # Change if Somee.com requires a different folder
           dangerous-clean-slate: true
-  build-and-deploy:
+  frontend-deploy:
     runs-on: ubuntu-latest
-
+    needs: backend-deploy
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
