@@ -12,10 +12,12 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
+    private readonly IWebHostEnvironment _env;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IWebHostEnvironment env)
     {
         _logger = logger;
+        _env = env;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -28,5 +30,11 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+
+    [HttpGet("environment")]
+    public IActionResult GetEnvironment()
+    {
+        return Ok(new { Environment = _env.EnvironmentName });
     }
 }
