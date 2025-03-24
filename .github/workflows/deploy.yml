@@ -11,6 +11,9 @@ jobs:
   backend-deploy:
     runs-on: ubuntu-latest
 
+    env:
+     ASPNETCORE_ENVIRONMENT: Production
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
