@@ -14,6 +14,17 @@ namespace exam_postly.Server
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // Add CORS policy
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("ProductionCorsPolicy", builder =>
+                {
+                    builder.WithOrigins("https://urakanow.github.io/exam_postly")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
 
             app.UseDefaultFiles();
@@ -25,8 +36,13 @@ namespace exam_postly.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            else if (app.Environment.IsProduction())
+            {
+                app.UseCors("ProductionCorsPolicy");
+                app.UseHsts();
+            }
 
-            app.UseHttpsRedirection();
+                app.UseHttpsRedirection();
 
             app.UseAuthorization();
 
