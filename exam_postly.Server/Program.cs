@@ -25,6 +25,8 @@ namespace exam_postly.Server
                 });
             });
 
+            //server change
+
             var app = builder.Build();
 
             app.UseDefaultFiles();
