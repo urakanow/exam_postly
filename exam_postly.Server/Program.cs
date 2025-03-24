@@ -19,7 +19,7 @@ namespace exam_postly.Server
             {
                 options.AddPolicy("ProductionCorsPolicy", builder =>
                 {
-                    builder.WithOrigins("https://urakanow.github.io/exam_postly/")
+                    builder.WithOrigins("https://urakanow.github.io/")
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
