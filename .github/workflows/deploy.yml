@@ -34,6 +34,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: published_app/
           server-dir: /www.exam-postly.somee.com/ # Change if Somee.com requires a different folder
+          passive: true
   
   frontend-deploy:
     runs-on: ubuntu-latest
