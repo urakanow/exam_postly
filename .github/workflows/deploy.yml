@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main  # Runs only when `main` is updated
+permissions:
+  contents: write
 
 jobs:
   backend-deploy:
