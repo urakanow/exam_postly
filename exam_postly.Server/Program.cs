@@ -32,18 +32,16 @@ namespace exam_postly.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
+            app.UseCors("ProductionCorsPolicy");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-
-                app.UseCors("ProductionCorsPolicy");
-                app.UseHsts();
             }
             else if (app.Environment.IsProduction())
             {
-                app.UseCors("ProductionCorsPolicy");
                 app.UseHsts();
             }
 
