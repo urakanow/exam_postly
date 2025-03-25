@@ -25,7 +25,7 @@ namespace exam_postly.Server
                            .AllowAnyOrigin();
                 });
             });
-
+            //
             //server change
 
             var app = builder.Build();
