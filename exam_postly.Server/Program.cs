@@ -37,6 +37,9 @@ namespace exam_postly.Server
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.UseCors("ProductionCorsPolicy");
+                app.UseHsts();
             }
             else if (app.Environment.IsProduction())
             {
