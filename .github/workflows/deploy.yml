@@ -30,8 +30,8 @@ jobs:
         run: dotnet publish -c Release -o published_app
 
       # Stop IIS to release file locks
-      - name: Stop IIS by renaming web.config
-        run: mv published_app/web.config published_app/web.config.bak
+      # - name: Stop IIS by renaming web.config
+      #   run: mv published_app/web.config published_app/web.config.bak
 
       - name: Upload to Somee.com via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -45,8 +45,8 @@ jobs:
           passive: true  # Ensures a more stable connection
 
       # Restart IIS after deployment
-      - name: Restore web.config to restart IIS
-        run: mv published_app/web.config.bak published_app/web.config
+      # - name: Restore web.config to restart IIS
+      #   run: mv published_app/web.config.bak published_app/web.config
 
   frontend-deploy:
     runs-on: ubuntu-latest
