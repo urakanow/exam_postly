@@ -41,8 +41,9 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: published_app/
           server-dir: /www.exam-postly.somee.com/
-          delete: true #uhkjhk
-          passive: true  # Ensures a more stable connection
+          # delete: true #uhkjhk
+          # passive: true  # Ensures a more stable connection
+          dangerous-clean-slate: true
 
       # Restart IIS after deployment
       - name: Restore web.config to restart IIS
