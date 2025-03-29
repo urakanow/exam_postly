@@ -8,24 +8,24 @@ permissions:
   contents: write
 
 jobs:
-  backend-deploy:
-    name: 🎉 Deploy
-    runs-on: ubuntu-latest
-    steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
+  # backend-deploy:
+  #   name: 🎉 Deploy
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: 🚚 Get latest code
+  #     uses: actions/checkout@v4
 
-    - name: Build and Publish
-      run: dotnet publish -c Release -o published_app
+  #   - name: Build and Publish
+  #     run: dotnet publish -c Release -o published_app
     
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.ftp_password }}
-        local-dir: published_app/
-        server-dir: /www.exam-postly.somee.com/
+  #   - name: 📂 Sync files
+  #     uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+  #     with:
+  #       server: ${{ secrets.FTP_SERVER }}
+  #       username: ${{ secrets.FTP_USERNAME }}
+  #       password: ${{ secrets.ftp_password }}
+  #       local-dir: published_app/
+  #       server-dir: /www.exam-postly.somee.com/
   # backend-deploy:
   #   runs-on: ubuntu-latest
 
