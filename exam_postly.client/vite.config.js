@@ -57,7 +57,8 @@ export default defineConfig({
             key: fs.readFileSync(keyFilePath),
             cert: fs.readFileSync(certFilePath),
         }
-    }
+    },
+    base: './'
 })
 
 //import { fileURLToPath, URL } from 'node:url';
