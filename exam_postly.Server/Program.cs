@@ -40,15 +40,16 @@ namespace exam_postly.Server
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-            else if (app.Environment.IsProduction())
-            {
-                app.UseHsts();
-            }
+            
 
             app.UseHttpsRedirection();
             app.UseRouting();
 
-            app.UseCors("ProductionCorsPolicy");
+            if (app.Environment.IsProduction())
+            {
+                app.UseHsts();
+                app.UseCors("ProductionCorsPolicy");
+            }
 
             app.UseAuthorization();
 
