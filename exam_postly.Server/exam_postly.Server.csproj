@@ -29,4 +29,16 @@
     </ProjectReference>
   </ItemGroup>
 
+	<Target Name="PublishReact" AfterTargets="ComputeFilesToPublish">
+		<Exec Command="npm install" WorkingDirectory="$(SpaRoot)\" />
+		<Exec Command="npm run build" WorkingDirectory="$(SpaRoot)\" />
+		<ItemGroup>
+			<DistFiles Include="$(SpaRoot)\dist\**\*" />
+		</ItemGroup>
+		<Copy
+		  SourceFiles="@(DistFiles)"
+		  DestinationFolder="$(PublishDir)ClientApp\%(DistFiles.RecursiveDir)"
+		  SkipUnchangedFiles="true" />
+	</Target>
+
 </Project>
