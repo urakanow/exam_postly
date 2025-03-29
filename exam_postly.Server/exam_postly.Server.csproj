@@ -5,8 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <SpaRoot>..\exam_postly.client</SpaRoot>
-    <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
-    <SpaProxyServerUrl>https://localhost:55300</SpaProxyServerUrl>
+    <!--<SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
+    <SpaProxyServerUrl>https://localhost:55300</SpaProxyServerUrl>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,22 +23,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\exam_postly.client\exam_postly.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
-
-	<!--<Target Name="PublishReact" AfterTargets="ComputeFilesToPublish">
-		<Exec Command="npm install" WorkingDirectory="$(SpaRoot)\" />
-		<Exec Command="npm run build" WorkingDirectory="$(SpaRoot)\" />
-		<ItemGroup>
-			<DistFiles Include="$(SpaRoot)\dist\**\*" />
-		</ItemGroup>
-		<Copy
-		  SourceFiles="@(DistFiles)"
-		  DestinationFolder="$(PublishDir)ClientApp\%(DistFiles.RecursiveDir)"
-		  SkipUnchangedFiles="true" />
-	</Target>-->
+  </ItemGroup>-->
 
 </Project>
