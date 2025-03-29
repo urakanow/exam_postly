@@ -1,66 +1,5 @@
-//import { fileURLToPath, URL } from 'node:url';
-
-//import { defineConfig } from 'vite';
-//import plugin from '@vitejs/plugin-react';
-//import fs from 'fs';
-//import path from 'path';
-//import child_process from 'child_process';
-//import { env } from 'process';
-
-//const baseFolder =
-//    env.APPDATA !== undefined && env.APPDATA !== ''
-//        ? `${env.APPDATA}/ASP.NET/https`
-//        : `${env.HOME}/.aspnet/https`;
-
-//const certificateName = "exam_postly.client";
-//const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-//const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
-
-//if (!fs.existsSync(baseFolder)) {
-//    fs.mkdirSync(baseFolder, { recursive: true });
-//}
-
-//if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-//    if (0 !== child_process.spawnSync('dotnet', [
-//        'dev-certs',
-//        'https',
-//        '--export-path',
-//        certFilePath,
-//        '--format',
-//        'Pem',
-//        '--no-password',
-//    ], { stdio: 'inherit', }).status) {
-//        throw new Error("Could not create certificate.");
-//    }
-//}
-
-//const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-//    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7287';
-
-//// https://vitejs.dev/config/
-//export default defineConfig({
-//    plugins: [plugin()],
-//    resolve: {
-//        alias: {
-//            '@': fileURLToPath(new URL('./src', import.meta.url))
-//        }
-//    },
-//    server: {
-//        proxy: {
-//            '^/weatherforecast': {
-//                target,
-//                secure: false
-//            }
-//        },
-//        port: parseInt(env.DEV_SERVER_PORT || '55300'),
-//        https: {
-//            key: fs.readFileSync(keyFilePath),
-//            cert: fs.readFileSync(certFilePath),
-//        }
-//    }
-//})
-
 import { fileURLToPath, URL } from 'node:url';
+
 import { defineConfig } from 'vite';
 import plugin from '@vitejs/plugin-react';
 import fs from 'fs';
@@ -68,52 +7,37 @@ import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
 
-// Only generate certs if NOT running inside Docker
-const isDocker = fs.existsSync('/.dockerenv');
+const baseFolder =
+    env.APPDATA !== undefined && env.APPDATA !== ''
+        ? `${env.APPDATA}/ASP.NET/https`
+        : `${env.HOME}/.aspnet/https`;
 
-let httpsConfig = false;
+const certificateName = "exam_postly.client";
+const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
 
-if (!isDocker) {
-    const baseFolder =
-        env.APPDATA !== undefined && env.APPDATA !== ''
-            ? `${env.APPDATA}/ASP.NET/https`
-            : `${env.HOME}/.aspnet/https`;
-
-    const certificateName = "exam_postly.client";
-    const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
-    const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
-
-    if (!fs.existsSync(baseFolder)) {
-        fs.mkdirSync(baseFolder, { recursive: true });
-    }
-
-    if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
-        if (0 !== child_process.spawnSync('dotnet', [
-            'dev-certs',
-            'https',
-            '--export-path',
-            certFilePath,
-            '--format',
-            'Pem',
-            '--no-password',
-        ], { stdio: 'inherit', }).status) {
-            throw new Error("Could not create certificate.");
-        }
-    }
-
-    httpsConfig = {
-        key: fs.readFileSync(keyFilePath),
-        cert: fs.readFileSync(certFilePath),
-    };
+if (!fs.existsSync(baseFolder)) {
+    fs.mkdirSync(baseFolder, { recursive: true });
 }
 
-// Use a dummy target if needed
+if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+    if (0 !== child_process.spawnSync('dotnet', [
+        'dev-certs',
+        'https',
+        '--export-path',
+        certFilePath,
+        '--format',
+        'Pem',
+        '--no-password',
+    ], { stdio: 'inherit', }).status) {
+        throw new Error("Could not create certificate.");
+    }
+}
+
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7287';
 
-// --------------------
-// Final Vite Config
-// --------------------
+// https://vitejs.dev/config/
 export default defineConfig({
     plugins: [plugin()],
     resolve: {
@@ -129,7 +53,83 @@ export default defineConfig({
             }
         },
         port: parseInt(env.DEV_SERVER_PORT || '55300'),
-        https: httpsConfig // Only enabled locally, not in Docker
+        https: {
+            key: fs.readFileSync(keyFilePath),
+            cert: fs.readFileSync(certFilePath),
+        }
     }
-});
+})
+
+//import { fileURLToPath, URL } from 'node:url';
+//import { defineConfig } from 'vite';
+//import plugin from '@vitejs/plugin-react';
+//import fs from 'fs';
+//import path from 'path';
+//import child_process from 'child_process';
+//import { env } from 'process';
+
+//// Only generate certs if NOT running inside Docker
+//const isDocker = fs.existsSync('/.dockerenv');
+
+//let httpsConfig = false;
+
+//if (!isDocker) {
+//    const baseFolder =
+//        env.APPDATA !== undefined && env.APPDATA !== ''
+//            ? `${env.APPDATA}/ASP.NET/https`
+//            : `${env.HOME}/.aspnet/https`;
+
+//    const certificateName = "exam_postly.client";
+//    const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
+//    const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
+
+//    if (!fs.existsSync(baseFolder)) {
+//        fs.mkdirSync(baseFolder, { recursive: true });
+//    }
+
+//    if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
+//        if (0 !== child_process.spawnSync('dotnet', [
+//            'dev-certs',
+//            'https',
+//            '--export-path',
+//            certFilePath,
+//            '--format',
+//            'Pem',
+//            '--no-password',
+//        ], { stdio: 'inherit', }).status) {
+//            throw new Error("Could not create certificate.");
+//        }
+//    }
+
+//    httpsConfig = {
+//        key: fs.readFileSync(keyFilePath),
+//        cert: fs.readFileSync(certFilePath),
+//    };
+//}
+
+//// Use a dummy target if needed
+//const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
+//    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7287';
+
+//// --------------------
+//// Final Vite Config
+//// --------------------
+//export default defineConfig({
+//    plugins: [plugin()],
+//    resolve: {
+//        alias: {
+//            '@': fileURLToPath(new URL('./src', import.meta.url))
+//        }
+//    },
+//    server: {
+//        proxy: {
+//            '^/weatherforecast': {
+//                target,
+//                secure: false
+//            }
+//        },
+//        port: parseInt(env.DEV_SERVER_PORT || '55300'),
+//        https: httpsConfig // Only enabled locally, not in Docker
+//    }
+//});
 
