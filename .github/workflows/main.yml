@@ -20,17 +20,17 @@ jobs:
           node-version: 20
 
       - name: Install Dependencies
-        working-directory: test.client
+        working-directory: exam_postly.client
         run: npm install
 
       - name: Build React App
-        working-directory: test.client
+        working-directory: exam_postly.client
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: test.client/dist
+          folder: exam_postly.client/dist
           clean: true
           force: true
