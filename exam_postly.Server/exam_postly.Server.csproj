@@ -16,10 +16,10 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\exam_postly.client\exam_postly.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-  </ItemGroup>
+  </ItemGroup>-->
 
 </Project>
