@@ -1,4 +1,3 @@
-
 namespace exam_postly.Server
 {
     public class Program
