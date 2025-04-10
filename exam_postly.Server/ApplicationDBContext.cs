@@ -8,6 +8,11 @@ namespace exam_postly.Server
         public DbSet<User> Users { get; set; }
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
-        
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasIndex(user => user.Id);
+        }
+
     }
 }
