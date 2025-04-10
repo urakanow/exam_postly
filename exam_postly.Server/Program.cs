@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 
 namespace exam_postly.Server
 {
@@ -5,8 +8,11 @@ namespace exam_postly.Server
     {
         public static void Main(string[] args)
         {
+            string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_uzxe7qEfiTn1";
             string productionCors = "ProductionCorsPolicy";
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
             // Add services to the container.
 
