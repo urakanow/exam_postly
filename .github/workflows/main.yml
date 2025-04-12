@@ -27,6 +27,11 @@ jobs:
         working-directory: exam_postly.client
         run: npm run build
 
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 9.0.x
+
       - name: Create EF Migrations bundle
         run: |
           dotnet tool install --global dotnet-ef
