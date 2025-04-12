@@ -9,11 +9,12 @@ namespace exam_postly.Server
         public static void Main(string[] args)
         {
             //string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_uzxe7qEfiTn1";
-            string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=exam_postly_production;Username=prod_user;Password=npg_1eiWSCGu0afy";
+            //string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=exam_postly_production;Username=prod_user;Password=npg_1eiWSCGu0afy";
             string productionCors = "ProductionCorsPolicy";
             
             var builder = WebApplication.CreateBuilder(args);
 
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
