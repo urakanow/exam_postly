@@ -13,7 +13,7 @@ namespace exam_postly.Server.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private static readonly User[] users = { new User("dev1", "dev1@gmail.com", "password1", "bebra"), new User("dev2", "dev2@gmail.com", "password2", "bebra") };
+        //private static readonly User[] users = { new User("dev1", "dev1@gmail.com", "password1", "bebra"), new User("dev2", "dev2@gmail.com", "password2", "bebra") };
         private ApplicationDBContext dbContext;
 
         public UserController(ApplicationDBContext dbContext)
@@ -24,6 +24,7 @@ namespace exam_postly.Server.Controllers
         [HttpGet(Name = "GetUsers")]
         public async Task<ActionResult> GetUsers()
         {
+            var users = dbContext.Users;
             return Ok(users);
             //return Enumerable.AsEnumerable(users);
         }
