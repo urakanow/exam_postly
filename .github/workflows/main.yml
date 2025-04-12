@@ -27,6 +27,13 @@ jobs:
         working-directory: exam_postly.client
         run: npm run build
 
+      - name: Create EF Migrations bundle
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet ef migrations bundle --project exam_postly.Server/exam_postly.Server.csproj --output efbundle
+      - name: Run EF Migrations
+        run: ./efbundle --connection "${{ secrets.DB_OWNER_CONNECTION_STRING }}"
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
