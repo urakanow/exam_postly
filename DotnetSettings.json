@@ -1,8 +1,0 @@
-{
-  "Projects": [ 
-    {
-      "Path": "exam_postly.Server/exam_postly.Server.csproj",
-      "Command": "web"
-    }
-  ]
-}
