@@ -8,6 +8,7 @@
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:62426</SpaProxyServerUrl>
 	<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+	<IsPublishable>true</IsPublishable>
   </PropertyGroup>
 
   <ItemGroup>
