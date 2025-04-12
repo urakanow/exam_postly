@@ -9,6 +9,7 @@
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:62426</SpaProxyServerUrl>
 	<GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+	<UserSecretsId>6f51fd39-638c-4cdf-818e-0fb39cb13896</UserSecretsId>
 
   </PropertyGroup>
 
