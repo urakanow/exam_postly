@@ -1,11 +1,34 @@
 ﻿#root {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem;
     text-align: center;
 }
 
 th, td {
     padding-left: 1rem;
     padding-right: 1rem;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    place-items: unset;
+}
+
+header {
+    height: 100px;
+    background-color: rgb(128, 68, 0);
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+}
+
+main {
+    flex: 1;
+    display: flex;
+}
+
+footer {
+    height: 100px;
+    background-color: rgb(128, 68, 0);
+    color: rgb(255, 255, 255);
+    font-size: 20px;
 }

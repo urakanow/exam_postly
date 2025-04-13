@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System.Text;
 
 
 namespace exam_postly.Server
@@ -13,6 +17,19 @@ namespace exam_postly.Server
             string productionCors = "ProductionCorsPolicy";
             
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                };
+            });
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -57,6 +74,8 @@ namespace exam_postly.Server
                 app.UseCors(productionCors);
             }
 
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
