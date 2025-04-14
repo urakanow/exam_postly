@@ -1,25 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm';
+import { AuthContext } from './AuthContext';
 
 function PersonalPage() {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const [userData, setUserData] = useState();
+    const { accessToken } = useContext(AuthContext);
+    const [showLogin, setShowLogin] = useState(false);
 
     useEffect(() => {
-        populateUserData()
-    }, []);
+        console.log(accessToken);
+        if (accessToken) {
+            populateUserData();
+            setShowLogin(false);
+        }
+        else {
+            setShowLogin(true);
+        }
+    }, [accessToken]);
 
     return (
         <div>
-            
-            <ul>
-                {userData === undefined ? <LoginForm /> :
-                    <div>
-                        userData.Name
-                        userData.Email
-                    </div>}
-            </ul>
+            {userData ? (
+                <div>
+                    {userData.name}
+                    {userData.email}
+                </div>
+            ) : (
+                <div>
+                    name placeholder 
+                    email placeholder
+                </div>
+            )}
+
+            {showLogin && (
+                <LoginForm onSuccess={() => setShowLogin(false) } />
+            ) }
         </div>
     );
 

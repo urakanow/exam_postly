@@ -79,7 +79,8 @@ namespace exam_postly.Server.Controllers
                 }
 
                 var accessToken = GenerateAccessToken(user.Email, user.Id);
-                return Ok(new { AccessToken = accessToken });
+                GenerateRefreshToken(user.Email, user.Id);
+                return Ok(new { AccessToken = accessToken, refreshToken });
             }
             catch (Exception ex)
             {

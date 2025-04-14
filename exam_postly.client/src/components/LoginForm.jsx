@@ -1,9 +1,13 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../App.css';
+import { AuthContext } from './AuthContext';
 
-function LoginForm() {
+function LoginForm({ onSuccess }) {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const { accessToken, setAccessToken } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     return (
         <form action={login}>
             <label>email</label><br />
@@ -26,7 +30,8 @@ function LoginForm() {
         });
         if (response.ok) {
             const data = await response.json();
-            setUserData(data);
+            setAccessToken(data.accessToken);
+            onSuccess();
         }
     }
 }
