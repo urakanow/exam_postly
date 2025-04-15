@@ -30,6 +30,7 @@ function LoginForm({ onSuccess }) {
         });
         if (response.ok) {
             const data = await response.json();
+            console.log("login successful");
             setAccessToken(data.accessToken);
             onSuccess();
         }
