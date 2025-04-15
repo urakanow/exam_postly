@@ -14,16 +14,11 @@ function PersonalPage() {
     const { authorizedRequest } = useApi();
 
     useEffect(() => {
-        console.log("useeffect");
         populateUserData();
-        console.log("access token: ", accessToken);
         if (accessToken) {
-            console.log("accessToken");
-            //populateUserData();
             setShowLogin(false);
         }
         else {
-            console.log("not accessToken");
             setShowLogin(true);
         }
     }, [accessToken]);
@@ -49,36 +44,13 @@ function PersonalPage() {
     );
 
     async function populateUserData() {
-        //const response = await fetch(`${baseUrl}/user/personal-page`, {
-        //    headers: {
-        //        'Authorization': `Bearer ${accessToken}`
-        //    }
-        //});
-        //if (response.ok) {
-        //    const data = await response.json();
-        //    setUserData(data);
-        //}
-        //try {
-        //    const response = await axios.get(`${baseUrl}/user/personal-page`, {
-        //        headers: {
-        //            'Authorization': `Bearer ${accessToken}`
-        //        }
-        //    });
-        //    console.log(response.data);
-        //    setUserData(response.data);
-        //} catch (error) {
-        //    console.error('Failed to fetch user data:', error);
-        //}
-
         try {
             const response = await authorizedRequest({
                 method: 'get',
                 url: `${baseUrl}/user/personal-page`
             });
-            console.log("response: ", response)
 
             if (response.status == 200) {
-                console.log("response is ok")
                 setUserData(response.data);
             }
         } catch (err) {

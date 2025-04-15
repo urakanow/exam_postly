@@ -20,18 +20,13 @@ function AuthProvider({ children }) {
     }, [accessToken]);
 
     const refreshToken = async () => {
-        console.log("refreshing token");
         try {
-            console.log("started refresh token fetch");
             const res = await axios.post(`${baseUrl}/user/refresh`, null, {
                 withCredentials: true // needed to send the cookie
             });
-            console.log("refresh token response got");
             setAccessToken(res.data.accessToken);
-            console.log("refreshed token: ", res.data.accessToken);
             return res.data.accessToken;
         } catch (err) {
-            console.log("error refreshing: ", err);
             setAccessToken(null);
             throw new Error("Unable to refresh token");
         }
