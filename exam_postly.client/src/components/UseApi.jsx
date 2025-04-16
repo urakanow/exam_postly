@@ -1,12 +1,10 @@
-// useApi.js
 import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
 export default function useApi() {
-
-    const { accessToken, setAccessToken, refreshToken } = useContext(AuthContext);
+    const { accessToken, refreshToken } = useContext(AuthContext);
 
     const isTokenExpired = (token) => {
         if (!token) return true;

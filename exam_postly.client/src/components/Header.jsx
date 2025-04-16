@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
 function Header() {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
     return (
         <header>
             sample header

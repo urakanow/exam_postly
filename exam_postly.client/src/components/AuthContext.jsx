@@ -1,4 +1,3 @@
-// AuthContext.js
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -10,6 +9,7 @@ function AuthProvider({ children }) {
         return sessionStorage.getItem('accessToken') || null;
         return token && !isTokenExpired(token) ? token : null;
     });
+    const [authErrorMessage, setAuthErrorMessage] = useState("");
 
     useEffect(() => {
         if (accessToken) {
@@ -33,7 +33,7 @@ function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ accessToken, setAccessToken, refreshToken }}>
+        <AuthContext.Provider value={{ accessToken, setAccessToken, refreshToken, authErrorMessage, setAuthErrorMessage }}>
             {children}
         </AuthContext.Provider>
     );

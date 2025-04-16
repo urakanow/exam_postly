@@ -53,7 +53,7 @@ namespace exam_postly.Server.Controllers
                 //var user = new User(dto.Name, dto.Email, hashedPassword, salt);
                 var user = new User
                 {
-                    Name = dto.Name,
+                    Username = dto.Username,
                     Email = dto.Email,
                     PasswordHash = hashedPassword,
                     Salt = salt
@@ -210,7 +210,7 @@ namespace exam_postly.Server.Controllers
                 return NotFound("user not found");
 
             // Step 3: Return safe user data (exclude passwords/etc)
-            return Ok(new { user.Id, user.Email, user.Name });
+            return Ok(new { user.Id, user.Email, user.Username });
         }
     }
 }

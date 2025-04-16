@@ -8,7 +8,7 @@ namespace exam_postly.Server.Models
         public int Id { get; set; }
 
         required
-        public string Name { get; set; }
+        public string Username { get; set; }
 
         required
         public string Email { get; set; }
