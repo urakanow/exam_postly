@@ -42,6 +42,10 @@ namespace exam_postly.Server.Controllers
         {
             try
             {
+                if (_dbContext.Users.Any(user => user.Email == dto.Email))
+                {
+                    return Conflict(new { message = "User with this email already exists" });
+                }
                 var saltPasswordPair = PasswordEncryptor.EncryptPassword(dto.Password);
                 string hashedPassword = saltPasswordPair.hashedPassword;
                 string salt = saltPasswordPair.salt;
@@ -57,11 +61,13 @@ namespace exam_postly.Server.Controllers
 
                 await _dbContext.Users.AddAsync(user);
                 await _dbContext.SaveChangesAsync();
-                return Ok("user created");
+
+                return await AuthenticateUser(new LoginDTO { Email = dto.Email, Password = dto.Password });
+                //return Ok("user created");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = "Unexpected error: " + ex.Message });
             }
         }
 
@@ -77,12 +83,12 @@ namespace exam_postly.Server.Controllers
                 var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Email == email);
                 if(user == null)
                 {
-                    return Unauthorized("wrong email or password");
+                    return Unauthorized(new { message = "Wrong email or password" });
                 }
 
                 if (!PasswordEncryptor.VerifyPassword(password, user.PasswordHash, user.Salt))
                 {
-                    return Unauthorized("wrong email or password");
+                    return Unauthorized(new { message = "Wrong email or password" });
                 }
 
                 var accessToken = GenerateAccessToken(user.Email, user.Id);
@@ -109,11 +115,11 @@ namespace exam_postly.Server.Controllers
                     Expires = refreshTokenExpiry
                 });
 
-                return Ok(new { AccessToken = accessToken });
+                return Ok(new { AccessToken = accessToken, message = "Login successful" });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { message = "Unexpected error: " + ex.Message });
             }
         }
 

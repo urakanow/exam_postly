@@ -5,6 +5,7 @@ import LoginForm from './LoginForm';
 import { AuthContext } from './AuthContext';
 import axios from 'axios';
 import useApi from './UseApi';
+import AuthForm from './AuthForm';
 
 function PersonalPage() {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -12,6 +13,9 @@ function PersonalPage() {
     const { accessToken } = useContext(AuthContext);
     const [showLogin, setShowLogin] = useState(false);
     const { authorizedRequest } = useApi();
+    const [showError, setShowError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState();
+    //const [isLoginOrSignUp, setIsLoginOrSignUp] = useState(true);//true is login, false is sign up
 
     useEffect(() => {
         populateUserData();
@@ -37,11 +41,37 @@ function PersonalPage() {
                 </div>
             )}
 
-            {showLogin && (
-                <LoginForm onSuccess={() => setShowLogin(false) } />
-            ) }
+            {showLogin && !showError && (
+                //<LoginForm onSuccess={() => setShowLogin(false) } />
+                <AuthForm
+                    onSuccess={() => setShowLogin(false)}
+                    onError={(errorMessage) => {
+                        console.log(errorMessage);
+                        setShowLogin(true);
+                        setShowError(true);
+                        setErrorMessage(errorMessage)
+                    }} />
+            )}
+            {showLogin && showError && (
+                
+                //<LoginForm onSuccess={() => setShowLogin(false) } />
+                <AuthForm
+                    onSuccess={() => setShowLogin(false)}
+                    onError={(errorMessage) => {
+                        console.log(errorMessage);
+                        setShowLogin(true);
+                        setShowError(true);
+                        setErrorMessage(errorMessage)
+                    }}
+                    errorText={errorMessage}
+                />
+            )}
         </div>
     );
+
+    //async function showError(errorMessage) {
+    //    console.log(errorMessage);
+    //}
 
     async function populateUserData() {
         try {
