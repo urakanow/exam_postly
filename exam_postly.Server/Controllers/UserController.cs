@@ -18,7 +18,6 @@ namespace exam_postly.Server.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        //private static readonly User[] users = { new User("dev1", "dev1@gmail.com", "password1", "bebra"), new User("dev2", "dev2@gmail.com", "password2", "bebra") };
         private readonly ApplicationDBContext _dbContext;
         private readonly IConfiguration _config;
 
@@ -33,7 +32,6 @@ namespace exam_postly.Server.Controllers
         {
             var users = _dbContext.Users;
             return Ok(users);
-            //return Enumerable.AsEnumerable(users);
         }
 
         [Route("signup")]
@@ -63,7 +61,6 @@ namespace exam_postly.Server.Controllers
                 await _dbContext.SaveChangesAsync();
 
                 return await AuthenticateUser(new LoginDTO { Email = dto.Email, Password = dto.Password });
-                //return Ok("user created");
             }
             catch (Exception ex)
             {
@@ -95,8 +92,8 @@ namespace exam_postly.Server.Controllers
 
                 var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
                 var hashedRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
-                //var refreshTokenExpiry = DateTime.UtcNow.AddDays(7);
-                var refreshTokenExpiry = DateTime.UtcNow.AddMinutes(10);//small value for a test
+                var refreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+                //var refreshTokenExpiry = DateTime.UtcNow.AddMinutes(1);//small value for a test
 
                 await _dbContext.AddAsync(new RefreshToken
                 {
@@ -140,8 +137,8 @@ namespace exam_postly.Server.Controllers
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                //expires: DateTime.UtcNow.AddMinutes(15),
-                expires: DateTime.UtcNow.AddMinutes(1), // small value for a test
+                expires: DateTime.UtcNow.AddMinutes(15),
+                //expires: DateTime.UtcNow.AddSeconds(30), // small value for a test
                 
                 signingCredentials: credentials
             );
@@ -170,9 +167,9 @@ namespace exam_postly.Server.Controllers
             await _dbContext.SaveChangesAsync();
 
             var newRefreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            var hashedNewRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(refreshToken)));
-
-            var refreshTokenExpiry = DateTime.UtcNow.AddMinutes(2);//small value for a test
+            var hashedNewRefreshToken = Convert.ToBase64String(SHA256.HashData(Encoding.UTF8.GetBytes(newRefreshToken)));
+            var refreshTokenExpiry = DateTime.UtcNow.AddDays(7);
+            //var refreshTokenExpiry = DateTime.UtcNow.AddMinutes(1);//small value for a test
 
             await _dbContext.AddAsync(new RefreshToken
             {
@@ -183,7 +180,7 @@ namespace exam_postly.Server.Controllers
             });
             await _dbContext.SaveChangesAsync();
 
-            Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
+            Response.Cookies.Append("refreshToken", newRefreshToken, new CookieOptions
             {
                 HttpOnly = true,
                 Secure = true,
@@ -199,17 +196,14 @@ namespace exam_postly.Server.Controllers
         [HttpGet(Name = "GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser()
         {
-            // Step 1: Get the user's ID from the token
             var userId = Convert.ToInt32(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
             if (userId == null)
                 return Unauthorized();
 
-            // Step 2: Fetch user data from DB
             var user = await _dbContext.Users.FindAsync(userId);
             if (user == null)
                 return NotFound("user not found");
 
-            // Step 3: Return safe user data (exclude passwords/etc)
             return Ok(new { user.Id, user.Email, user.Username });
         }
     }
