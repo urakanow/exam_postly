@@ -34,6 +34,8 @@ namespace exam_postly.Server
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
+            
+
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
             builder.Services.AddHostedService<RefreshTokenCleanupService>();
@@ -56,6 +58,8 @@ namespace exam_postly.Server
 
             var app = builder.Build();
 
+            app.UseStaticFiles();
+
             app.UseDefaultFiles();
             app.MapStaticAssets();
 
@@ -67,6 +71,7 @@ namespace exam_postly.Server
 
             app.UseHttpsRedirection();
             app.UseRouting();
+            
 
             if(app.Environment.IsDevelopment())
             {
