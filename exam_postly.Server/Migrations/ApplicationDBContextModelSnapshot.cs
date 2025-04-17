@@ -50,7 +50,7 @@ namespace exam_postly.Server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("exam_postly.Server.Models.User", b =>
@@ -79,7 +79,7 @@ namespace exam_postly.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("exam_postly.Server.Models.RefreshToken", b =>

@@ -1,3 +1,4 @@
+using exam_postly.Server.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -12,8 +13,6 @@ namespace exam_postly.Server
     {
         public static void Main(string[] args)
         {
-            //string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=neondb;Username=neondb_owner;Password=npg_uzxe7qEfiTn1";
-            //string connectionString = "Host=ep-yellow-dust-a2y1d5ag-pooler.eu-central-1.aws.neon.tech;Database=exam_postly_production;Username=prod_user;Password=npg_1eiWSCGu0afy";
             string productionCors = "ProductionCorsPolicy";
             
             var builder = WebApplication.CreateBuilder(args);
@@ -25,8 +24,8 @@ namespace exam_postly.Server
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
-                    //ClockSkew = TimeSpan.FromSeconds(30),
-                    ClockSkew = TimeSpan.Zero,
+                    ClockSkew = TimeSpan.FromSeconds(30),
+                    //ClockSkew = TimeSpan.Zero,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
                     ValidAudience = builder.Configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
@@ -37,6 +36,7 @@ namespace exam_postly.Server
 
             builder.Services.AddDbContext<ApplicationDBContext>(options => options.UseNpgsql(connectionString));
 
+            builder.Services.AddHostedService<RefreshTokenCleanupService>();
             // Add services to the container.
 
             builder.Services.AddControllers();
