@@ -49,7 +49,8 @@ namespace exam_postly.Server
                 {
                     builder.WithOrigins("https://urakanow.github.io")
                         .AllowAnyHeader()
-                        .AllowAnyMethod();
+                        .AllowAnyMethod()
+                        .AllowCredentials();
                 });
             });
 
