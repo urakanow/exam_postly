@@ -9,6 +9,11 @@
     <link rel="stylesheet" crossorigin href="./assets/index-DUpe0KkG.css">
   </head>
   <body>
-    <div id="root"></div>
+      <div id="root"></div>
+      <script>
+          if (window.location.pathname !== '/' && !window.location.pathname.startsWith('/assets/')) {
+              window.history.replaceState({}, '', '/');
+          }
+      </script>
   </body>
 </html>
