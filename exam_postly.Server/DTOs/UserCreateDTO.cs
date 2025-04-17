@@ -6,7 +6,7 @@ namespace exam_postly.Server.DTOs
     public class UserCreateDTO
     {
         [Required, NotNull]
-        public string Name { get; set; }
+        public string Username { get; set; }
 
         [Required, NotNull]
         [EmailAddress]
