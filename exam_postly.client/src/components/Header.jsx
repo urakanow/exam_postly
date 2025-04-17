@@ -6,8 +6,8 @@ function Header() {
         <header>
             sample header
             <nav>
-                <Link to="/exam_postly/">Home</Link>
-                <Link to="/exam_postly/me">Me</Link>
+                <Link to="/">Home</Link>
+                <Link to="/me">Me</Link>
             </nav>
         </header>
     );

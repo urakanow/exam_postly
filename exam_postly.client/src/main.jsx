@@ -13,8 +13,8 @@ createRoot(document.getElementById('root')).render(
             <AuthProvider>
                 <Layout>
                     <Routes>
-                        <Route path="/exam_postly/" element={<App />} />
-                        <Route path="/exam_postly/me" element={<PersonalPage />} />
+                        <Route path="/" element={<App />} />
+                        <Route path="/me" element={<PersonalPage />} />
                     </Routes>
                 </Layout>
             </AuthProvider>
