@@ -47,7 +47,7 @@ namespace exam_postly.Server
             {
                 options.AddPolicy(productionCors, builder =>
                 {
-                    builder.WithOrigins("https://urakanow.github.io/exam_postly")
+                    builder.WithOrigins("https://urakanow.github.io")
                         .AllowAnyHeader()
                         .AllowAnyMethod()
                         .AllowCredentials();
