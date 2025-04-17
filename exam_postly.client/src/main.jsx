@@ -7,9 +7,11 @@ import Layout from './components/Layout';
 import PersonalPage from './components/PersonalPage';
 import AuthProvider from './components/AuthContext';
 
+const basename = process.env.NODE_ENV === 'production' ? '/exam_postly' : '/';
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-        <BrowserRouter>
+        <BrowserRouter basename={ basename }>
             <AuthProvider>
                 <Layout>
                     <Routes>
