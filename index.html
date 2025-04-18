@@ -11,9 +11,13 @@
   <body>
       <div id="root"></div>
       <script>
-          if (window.location.pathname !== '/' && !window.location.pathname.startsWith('/assets/')) {
-              window.history.replaceState({}, '', '/');
-          }
+          (function () {
+              var redirect = sessionStorage.redirect;
+              delete sessionStorage.redirect;
+              if (redirect && redirect != location.pathname) {
+                  history.replaceState(null, null, redirect);
+              }
+          })();
       </script>
   </body>
 </html>
